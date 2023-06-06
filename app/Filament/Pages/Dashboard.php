@@ -14,6 +14,13 @@ class Dashboard extends BasePage
 
     protected static ?int $navigationSort = -2;
 
+    // protected function getHeaderWidgets(): array
+    // {
+    //     return [
+    //         StatsOverviewWidget::class
+    //     ];
+    // }
+
     // protected static string $view = 'filament::pages.dashboard';
 
     // protected static function getNavigationLabel(): string

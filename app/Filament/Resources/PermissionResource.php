@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Forms\Components\Card;
 use Filament\Forms\Components\TextInput;
 
+
 class PermissionResource extends Resource
 {
     protected static ?string $model = Permission::class;
@@ -26,20 +27,25 @@ class PermissionResource extends Resource
 
     protected static ?int $navigationSort = 3;
 
+    // for globel serch
+    protected static ?string $recordTitleAttribute = 'name';
+
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 Card::make([
                     TextInput::make('name')
-                    ->unique()
-                    ->required()
+                        ->unique()
+                        ->required()
                 ])
             ]);
     }
 
     public static function table(Table $table): Table
     {
+
+            dd(Permission::get());
         return $table
             ->columns([
                 TextColumn::make('id')->sortable(),

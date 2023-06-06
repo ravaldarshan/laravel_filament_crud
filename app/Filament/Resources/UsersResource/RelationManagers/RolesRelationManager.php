@@ -9,6 +9,7 @@ use Filament\Resources\Table;
 use Filament\Tables;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Spatie\Permission\Models\Role;
 
 class RolesRelationManager extends RelationManager
 {
@@ -18,11 +19,26 @@ class RolesRelationManager extends RelationManager
 
     public static function form(Form $form): Form
     {
+
+        $roles = Role::all();
+        $roles_array = [];
+        foreach ($roles as $role) {
+            $roles_array = array_merge($roles_array,
+            [
+                $role->id => $role->name,
+            ]);
+        }
+        // dd($roles_array);
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(255),
+                // Forms\Components\Select::make('role')
+                //     ->multiple()
+                //     ->options($roles_array)
+                //     ->preload()
+                //     ->required(),
             ]);
     }
 
@@ -31,6 +47,7 @@ class RolesRelationManager extends RelationManager
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name'),
+
             ])
             ->filters([
                 //
@@ -45,5 +62,5 @@ class RolesRelationManager extends RelationManager
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
             ]);
-    }    
+    }
 }

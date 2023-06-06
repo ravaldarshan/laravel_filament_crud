@@ -29,7 +29,11 @@ class RoleResource extends Resource
 
     protected static ?int $navigationSort = 2;
 
-    public static function form(Form $form): Form {
+    // for globel serch
+    protected static ?string $recordTitleAttribute = 'name';
+
+    public static function form(Form $form): Form
+    {
         return $form
             ->schema([
                 Card::make()
@@ -42,7 +46,7 @@ class RoleResource extends Resource
                             ->relationship('permissions', 'name')
                             ->preload()
                             ->required(),
-                            Select::make('technologies')
+                        Select::make('technologies')
                             ->multiple()
                             ->options([
                                 'tailwind' => 'Tailwind CSS',
@@ -54,7 +58,8 @@ class RoleResource extends Resource
             ]);
     }
 
-    public static function table(Table $table): Table {
+    public static function table(Table $table): Table
+    {
         return $table
             ->columns([
                 TextColumn::make('id')->sortable(),
@@ -76,7 +81,8 @@ class RoleResource extends Resource
             ]);
     }
 
-    public static function getRelations(): array {
+    public static function getRelations(): array
+    {
         return [
             PermissionsRelationManager::class,
         ];

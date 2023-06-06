@@ -11,14 +11,35 @@ use Flowframe\Trend\TrendValue;
 class UsersCharts extends BarChartWidget
 {
     protected static ?string $heading = 'Users';
+    protected static ?int $sort = 3;
+    public ?string $filter = 'today';
+    protected static ?string $maxHeight = '300px';
 
     public static function canView(): bool
     {
         return true;
     }
+
+    protected static ?array $options = [
+        'plugins' => [
+            'legend' => [
+                'display' => false,
+            ],
+        ],
+    ];
+
+    protected function getFilters(): ?array
+    {
+        return [
+            'today' => 'Today',
+            'week' => 'Last week',
+            'month' => 'Last month',
+            'year' => 'This year',
+        ];
+    }
     protected function getData(): array
     {
-
+        $activeFilter = $this->filter;
         $data = Trend::model(User::class)
         ->between(
             start: now()->startOfYear(),

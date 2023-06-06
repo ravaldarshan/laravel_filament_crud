@@ -8,6 +8,7 @@ use Filament\Widgets\StatsOverviewWidget\Card;
 class StatsOverview extends BaseWidget
 {
     protected static ?string $pollingInterval = '10s';
+    protected static ?int $sort = 1;
     protected function getCards(): array
     {
         return [
@@ -24,4 +25,8 @@ class StatsOverview extends BaseWidget
                 ->descriptionIcon('heroicon-s-trending-up'),
         ];
     }
+    // protected int | string | array $columnSpan = [
+    //     'md' => 2,
+    //     'xl' => 2,
+    // ];
 }
